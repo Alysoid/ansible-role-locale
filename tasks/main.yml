@@ -1,15 +1,15 @@
 ---
-- name: Install 'language-pack-{{ locale[0:2] }}'
+- name: Install 'language-pack-{{ lang[0:2] }}'
   ansible.builtin.package:
     name: language-pack-{{ item[0:2] }}
     state: present
   with_items:
-    - "{{ locale }}"
+    - "{{ lang }}"
   when: ansible_distribution == 'Ubuntu'
 
-- name: Generate locale for '{{ locale }}'
+- name: Generate locale for '{{ lang }}'
   ansible.builtin.locale_gen:
-    name: "{{ locale }}"
+    name: "{{ lang }}"
     state: present
 
 - name: Check localectl status
@@ -20,12 +20,12 @@
 - name: Get current system settings
   ansible.builtin.set_fact:
     keymap_current: "{{ localectl_status.stdout | regex_search('Keymap: ([^\n]+)', '\\1') | first }}"
-    locale_current: "{{ localectl_status.stdout | regex_search('LANG=([^\n]+)', '\\1') | first }}"
+    lang_current: "{{ localectl_status.stdout | regex_search('LANG=([^\n]+)', '\\1') | first }}"
     language_current: "{{ localectl_status.stdout | regex_search('LANGUAGE=([^\n]+)', '\\1') | default([locale], true) | first }}"
 
-- name: Set locale to '{{ locale }}', language to '{{ language }}'
-  ansible.builtin.command: localectl set-locale LANG={{ locale }} LANGUAGE={{ language }}
-  when: locale_current != locale or language_current != language
+- name: Set LANG to '{{ lang }}', LANGUAGE to '{{ language }}'
+  ansible.builtin.command: localectl set-locale LANG={{ lang }} LANGUAGE={{ language }}
+  when: lang_current != lang or language_current != language
 
 - name: Set keyboard layout
   ansible.builtin.command: localectl set-keymap --no-convert {{ keymap }}

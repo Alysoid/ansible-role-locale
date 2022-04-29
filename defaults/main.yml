@@ -1,4 +1,5 @@
 ---
 keymap: us
-locale: en_US.UTF-8
-language: en_US.UTF-8
+lang: en_US.UTF-8
+locale: "{{ lang }}"
+language: en_US:en_GB:en
