@@ -1,4 +1,4 @@
-# [Catena](https://github.com/alysoid/catena) - Locale Ansible Role
+# [Catena](https://github.com/alysoid/catena) Ansible Role: locale
 
 Ansible role to manage locales and virtual console keymap via systemd.
 
