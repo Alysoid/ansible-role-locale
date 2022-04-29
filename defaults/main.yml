@@ -1,5 +1,16 @@
 ---
+# Keyboard mappings (keymaps) for the Linux console
+# https://wiki.archlinux.org/title/Linux_console/Keyboard_configuration
 keymap: us
+
+# Default locale with `LANG` environment variable
+# Used to print out messages in the chosen language.
+# Set all the LC_* variables that are not explicitly set.
+# https://wiki.archlinux.org/title/locale#LANG:_default_locale
 lang: en_US.UTF-8
 locale: "{{ lang }}"
+
+# Fallback locale with `LANGUAGE` environment variable
+# Specify the order of languages when a translation is unavailable.
+# https://wiki.archlinux.org/title/locale#LANGUAGE:_fallback_locales
 language: en_US:en_GB:en
